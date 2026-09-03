@@ -1,98 +1,121 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
-  return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
+interface Filme {
+  id: number;
+  titulo: string;
+  nacional: boolean;
+  avaliacao: number;
 }
 
 export default function HomeScreen() {
+  const [filmes, setFilmes] = useState<Filme[]>([]);
+  const [carregando, setCarregando] = useState(true);
+  
+  // Usaremos o roteador clássico sem o Link
+  const router = useRouter();
+
+  useEffect(() => {
+    const buscarFilmes = async () => {
+      try {
+        const resposta = await fetch('http://192.168.15.81:3000/api/filmes');
+        const dados = await resposta.json();
+        setFilmes(dados); 
+      } catch (error) {
+        console.error('Erro ao buscar os filmes:', error);
+      } finally {
+        setCarregando(false); 
+      }
+    };
+    buscarFilmes();
+  }, []);
+
+  const renderItem = ({ item }: { item: Filme }) => (
+    <TouchableOpacity 
+      style={styles.card}
+      activeOpacity={0.7}
+      onPress={() => {
+        console.log('Botão clicado! Indo para o filme ID:', item.id);
+        router.push(`/detalhes/${item.id}` as any);
+      }}
+    >
+      <Text style={styles.titulo}>{item.titulo}</Text>
+      <View style={styles.tagsContainer}>
+        {item.nacional && <Text style={styles.tagNacional}>Nacional</Text>}
+        {/* A trava garante que, se não houver avaliação, exibe 0.0 */}
+        <Text style={styles.tagAvaliacao}>
+          ⭐ {item.avaliacao ? Number(item.avaliacao).toFixed(1) : '0.0'}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
-
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
-
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
-
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+    <View style={styles.container}>
+      <Text style={styles.headerTitle}>Em Cartaz</Text>
+      {carregando ? (
+        <ActivityIndicator size="large" color="#E50914" style={{ marginTop: 50 }} />
+      ) : (
+        <FlatList
+          data={filmes}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderItem}
+          contentContainerStyle={{ paddingBottom: 20 }}
+          showsVerticalScrollIndicator={false}
+        />
+      )}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#121212',
+    paddingHorizontal: 20,
+    paddingTop: 50,
+  },
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    marginBottom: 20,
+  },
+  card: {
+    backgroundColor: '#1E1E1E',
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 16,
+    elevation: 4, 
+    shadowColor: '#000', 
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+  },
+  titulo: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    marginBottom: 10,
+  },
+  tagsContainer: {
     flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
     alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
   },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
+  tagNacional: {
+    backgroundColor: '#008000',
+    color: '#FFF',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 6,
+    fontSize: 12,
+    fontWeight: 'bold',
+    marginRight: 12,
   },
-  title: {
-    textAlign: 'center',
-  },
-  code: {
-    textTransform: 'uppercase',
-  },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+  tagAvaliacao: {
+    color: '#FFD700',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
