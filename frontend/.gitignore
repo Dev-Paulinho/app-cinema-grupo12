@@ -9,6 +9,13 @@ dist/
 web-build/
 expo-env.d.ts
 
+# Arquivos de log e erros
+npm-debug.*
+yarn-error.log
+
+.vscode/
+.claude/
+
 # Native
 .kotlin/
 *.orig.*
