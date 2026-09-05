@@ -12,14 +12,20 @@ interface Filme {
 export default function HomeScreen() {
   const [filmes, setFilmes] = useState<Filme[]>([]);
   const [carregando, setCarregando] = useState(true);
+  const [nacional, setNacional] = useState(false);
   
   // Usaremos o roteador clássico sem o Link
   const router = useRouter();
 
+  const handleChange = () => {
+    setNacional(!nacional);
+    setCarregando(true);
+  }
+
   useEffect(() => {
     const buscarFilmes = async () => {
       try {
-        const resposta = await fetch('http://192.168.15.81:3000/api/filmes');
+        const resposta = await fetch('http://localhost:3000/api/filmes?nacional=' + nacional);
         const dados = await resposta.json();
         setFilmes(dados); 
       } catch (error) {
@@ -29,7 +35,7 @@ export default function HomeScreen() {
       }
     };
     buscarFilmes();
-  }, []);
+  }, [nacional]);
 
   const renderItem = ({ item }: { item: Filme }) => (
     <TouchableOpacity 
@@ -53,7 +59,25 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.headerTitle}>Em Cartaz</Text>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerTitle}>
+          Em Cartaz
+        </Text>
+
+        <TouchableOpacity
+          style={[
+            styles.filtroNacional,
+            nacional && styles.filtroNacionalAtivo
+          ]}
+          activeOpacity={0.7}
+          onPress={handleChange}
+        >
+          <Text style={styles.filtroNacionalTexto}>
+            Nacional
+          </Text>
+        </TouchableOpacity>
+      </View>
+
       {carregando ? (
         <ActivityIndicator size="large" color="#E50914" style={{ marginTop: 50 }} />
       ) : (
@@ -76,6 +100,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 50,
   },
+   headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
   headerTitle: {
     fontSize: 28,
     fontWeight: 'bold',
@@ -92,6 +122,20 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
     shadowOffset: { width: 0, height: 2 },
+  },
+  filtroNacional: {
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    borderRadius: 7,
+    backgroundColor: '#333333',
+  },
+  filtroNacionalAtivo: {
+    backgroundColor: '#008000',
+  },
+  filtroNacionalTexto: {
+    color: '#FFFFFF',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   titulo: {
     fontSize: 20,
