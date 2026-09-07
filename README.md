@@ -1,6 +1,5 @@
 # 🎬 Aplicativo de Cinema — Grupo 12
 
-![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
 ![React Native](https://img.shields.io/badge/Frontend-React%20Native%20%2F%20Expo-61DAFB?logo=react)
 ![Node.js](https://img.shields.io/badge/Backend-Node.js%20%2F%20Express-339933?logo=node.js)
 ![PostgreSQL](https://img.shields.io/badge/Banco%20de%20Dados-PostgreSQL-336791?logo=postgresql)
