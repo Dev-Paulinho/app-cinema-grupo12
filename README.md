@@ -4,7 +4,7 @@
 ![Node.js](https://img.shields.io/badge/Backend-Node.js%20%2F%20Express-339933?logo=node.js)
 ![PostgreSQL](https://img.shields.io/badge/Banco%20de%20Dados-PostgreSQL-336791?logo=postgresql)
 
-Projeto acadêmico desenvolvido para a disciplina de **Análise e Desenvolvimento de Sistemas**, com o objetivo de criar um aplicativo mobile que centraliza trailers, sinopses, avaliações, programação de cinemas locais e compra de ingressos.
+Projeto acadêmico desenvolvido para a disciplina **Projeto Integrador: Desenvolvimento de sistemas orientado a dispositivos móveis e baseados na web** do curso de  **Tecnologia em Análise e Desenvolvimento de Sistemas**, com o objetivo de criar um aplicativo mobile que centraliza trailers, sinopses, avaliações, programação de cinemas locais e compra de ingressos.
 
 📹 Um vídeo demonstrativo do projeto está disponível em [`Video Pitch.mp4`](./Video%20Pitch.mp4).
 
