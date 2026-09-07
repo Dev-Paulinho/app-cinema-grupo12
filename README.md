@@ -1,4 +1,4 @@
-# 🎬 Aplicativo de Cinema — Grupo 12
+# Aplicativo de Cinema - Grupo 12
 
 ![React Native](https://img.shields.io/badge/Frontend-React%20Native%20%2F%20Expo-61DAFB?logo=react)
 ![Node.js](https://img.shields.io/badge/Backend-Node.js%20%2F%20Express-339933?logo=node.js)
@@ -6,11 +6,11 @@
 
 Projeto acadêmico desenvolvido para a disciplina **Projeto Integrador: Desenvolvimento de sistemas orientado a dispositivos móveis e baseados na web** do curso de  **Tecnologia em Análise e Desenvolvimento de Sistemas**, com o objetivo de criar um aplicativo mobile que centraliza trailers, sinopses, avaliações, programação de cinemas locais e compra de ingressos.
 
-📹 Um vídeo demonstrativo do projeto está disponível em [`Video Pitch.mp4`](./Video%20Pitch.mp4).
+Um vídeo demonstrativo do projeto está disponível em [`Video Pitch.mp4`](./Video%20Pitch.mp4).
 
 ---
 
-## 📑 Sumário
+## Sumário
 
 - [Objetivo](#-objetivo)
 - [Proof of Concept (PoC)](#-proof-of-concept-poc)
@@ -23,11 +23,11 @@ Projeto acadêmico desenvolvido para a disciplina **Projeto Integrador: Desenvol
 
 ---
 
-## 🎯 Objetivo
+## Objetivo
 
 Aplicativo mobile para centralizar trailers, sinopses, avaliações, programação de cinemas locais e compra de ingressos.
 
-## 🧪 Proof of Concept (PoC)
+## Proof of Concept (PoC)
 
 ### Objetivo da PoC
 Demonstrar a viabilidade do aplicativo por meio da implementação de um fluxo baseado na jornada de um usuário que deseja encontrar filmes nacionais, consultar informações sobre um filme de interesse e visualizar suas sessões disponíveis.
@@ -43,7 +43,7 @@ Para evitar a necessidade de integração com APIs externas de filmes, cinemas o
 
 ---
 
-## 🛠 Tecnologias utilizadas
+## Tecnologias utilizadas
 
 **Frontend**
 - [React Native](https://reactnative.dev/) (0.86) + [React 19](https://react.dev/)
@@ -57,7 +57,7 @@ Para evitar a necessidade de integração com APIs externas de filmes, cinemas o
 
 ---
 
-## 📂 Estrutura do repositório
+## Estrutura do repositório
 
 ```
 app-cinema-grupo12/
@@ -69,7 +69,7 @@ app-cinema-grupo12/
 
 ---
 
-## ✅ Pré-requisitos
+## Pré-requisitos
 
 Antes de começar, tenha instalado na sua máquina:
 
@@ -81,7 +81,7 @@ Antes de começar, tenha instalado na sua máquina:
 
 ---
 
-## 🚀 Como rodar o projeto
+## Como rodar o projeto
 
 ### 1. Clonar o repositório
 
@@ -100,14 +100,14 @@ node index.js
 
 Se tudo estiver certo, o terminal deve exibir:
 ```
-🚀 Servidor rodando na porta 3000
-🔌 Conectado ao banco de dados Supabase!
+Servidor rodando na porta 3000
+Conectado ao banco de dados Supabase!
 ```
 
 A API ficará disponível em `http://localhost:3000`, com as rotas:
-- `GET /api/filmes` — lista todos os filmes (aceita `?nacional=true` para filtrar só nacionais)
-- `GET /api/filmes/:id` — detalhes de um filme específico
-- `GET /api/sessoes?filmeId=ID` — sessões disponíveis para um filme
+- `GET /api/filmes` - lista todos os filmes (aceita `?nacional=true` para filtrar só nacionais)
+- `GET /api/filmes/:id` - detalhes de um filme específico
+- `GET /api/sessoes?filmeId=ID` - sessões disponíveis para um filme
 
 ### 3. Configurar e rodar o Frontend
 
@@ -123,7 +123,7 @@ Após o comando acima, abra o app **Expo Go** no celular e escaneie o QR Code ex
 
 ---
 
-## 👥 Equipe
+## Equipe
 
 - Gustavo Oliveira Arao da Silva
 - Lucas Gabriel de Almeida Pereira
@@ -132,7 +132,3 @@ Após o comando acima, abra o app **Expo Go** no celular e escaneie o QR Code ex
 - Pedro Henrique Leite Melo
 
 ---
-
-## 📄 Licença
-
-Projeto acadêmico desenvolvido para fins educacionais, sem fins comerciais.
